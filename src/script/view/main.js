@@ -1,24 +1,62 @@
-import ItemsData from '../items-data.js';
+import ItemsData from "../items-data.js";
 
-const main = () =>{
-    const appBar = document.createElement('app-bar');
-    const searchBar = document.createElement('search-bar');
-    const addBtn = document.createElement('custom-btn');
-    const itemList = document.createElement('item-list');
-    const customModal = document.createElement('custom-modal');
-    const itemForm = document.createElement('item-form');
-    const restockForm = document.createElement('stock-form');
-    const takeForm = document.createElement('stock-form');
+const getItem  = async itemList => {
+    try {
+        itemList.items = await ItemsData.getItems();
+    } catch (rejectedMess) {
+        itemList.renderError(rejectedMess);
+    }
+}
 
-    
+const main = async () => {
+    const appBar = document.createElement("app-bar");
+    const searchBar = document.createElement("search-bar");
+    const addBtn = document.createElement("add-btn");
+    const addModal = document.createElement("custom-modal");
+    const itemList = document.createElement("item-list");
+    const itemForm = document.createElement("item-form");
+    const restockForm = document.createElement("stock-form");
+    const takeForm = document.createElement("stock-form");
+    const amountModal = document.createElement("custom-modal");
 
-    document.querySelector('header').appendChild(appBar);
-    const mainEl = document.querySelector('main');
+    const loadModal = (modal, element) => {
+        modal.content = element;
+    };
+
+    addModal.id = "AddItemModal";
+    addBtn.modalId = addModal.id;
+    loadModal(addModal, itemForm);
+    addModal.clickEvent = async () => {
+        try {
+            await ItemsData.addItem(itemForm.value);
+            itemForm.value = {};
+            getItem(itemList);
+        } catch (rejectedMess) {
+            itemList.renderError(rejectedMess);
+        }
+    }
+
+    const onButtonSearchClicked = async () => {
+        try {
+            itemList.items = await ItemsData.searchItems(searchBar.value);
+        } catch (rejectedMess) {
+            itemList.renderError(rejectedMess);
+        }
+    };
+
+    getItem(itemList);
+
+
+    searchBar.clickEvent = onButtonSearchClicked;
+
+    document.querySelector("header").appendChild(appBar);
+    const mainEl = document.querySelector("main");
+    mainEl.classList.add("container", "mt-5");
     mainEl.appendChild(searchBar);
     mainEl.appendChild(addBtn);
     mainEl.appendChild(itemList);
 
-    document.appendChild()
+    document.querySelector("body").appendChild(addModal);
 };
 
 export default main;
