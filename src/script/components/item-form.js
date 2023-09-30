@@ -1,9 +1,11 @@
 class ItemForm extends HTMLElement {
     connectedCallback() {
         this.render();
+        this._itemId = "";
     }
 
-    set value({name="", unit="", keterangan=""}) {
+    set value({id="", name="", unit="", keterangan=""}) {
+        this._itemId = id;
         this.querySelector("#name").value = name;
         this.querySelector("#unit").value = unit;
         this.querySelector("#keterangan").value = keterangan;
@@ -11,6 +13,7 @@ class ItemForm extends HTMLElement {
 
     get value() {
         return {
+            id: this._itemId,
             name: this.querySelector("#name").value,
             unit: this.querySelector("#unit").value,
             keterangan: this.querySelector("#keterangan").value,

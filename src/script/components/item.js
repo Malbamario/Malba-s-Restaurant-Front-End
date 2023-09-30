@@ -7,6 +7,14 @@ class ItemElement extends HTMLElement{
         this._data = data;
     }
 
+    set editForm(editForm){
+        this._editForm = editForm;
+    }
+
+    set deleteConfirm(deleteConfirm){
+        this._deleteConfirm = deleteConfirm;
+    }
+
     render(){
         this.className = "";
         this.classList.add("col-lg-4", "col-md-6", "col-sm-12");
@@ -21,8 +29,10 @@ class ItemElement extends HTMLElement{
                             <i class="bi bi-three-dots-vertical" style="color:black"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#editModal" data-bs-toggle="modal"
-                                data-bs-target="#editModal">Edit</a></li>
+                            <li><a class="dropdown-item" href="#EditItemModal" data-bs-toggle="modal"
+                                data-bs-target="#EditItemModal" id="${this._data.id}_edit">Edit</a></li>
+                            <li><a class="dropdown-item" href="#DeleteItemModal" data-bs-toggle="modal"
+                                data-bs-target="#DeleteItemModal" id="${this._data.id}_delete">Delete</a></li>
                         </ul>
                     </div>
                 </div>
@@ -40,6 +50,8 @@ class ItemElement extends HTMLElement{
                 </div>
             </div>
         </div>`;
+        this.querySelector(`#${this._data.id}_edit`).addEventListener("click", this._editForm);
+        this.querySelector(`#${this._data.id}_delete`).addEventListener("click", this._deleteConfirm);
     }
 }
 

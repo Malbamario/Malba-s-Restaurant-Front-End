@@ -5,11 +5,6 @@ class CustomModal extends HTMLElement {
         this.render();
     }
 
-    set contentId(contentId){
-        this._contentId = contentId;
-        this.render();
-    }
-
     set clickEvent(event){
         this._clickEvent = event;
         this.render();
@@ -24,7 +19,7 @@ class CustomModal extends HTMLElement {
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Item</h5>
+                    <h5 class="modal-title">${this._content.title}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body"></div>
@@ -35,8 +30,9 @@ class CustomModal extends HTMLElement {
             </div>
         </div>
         `;
-        this.querySelector(".modal-body").appendChild(this._content);
+        this.querySelector(".modal-body").appendChild(this._content.element);
         this.querySelector("#submitBtn").addEventListener("click", this._clickEvent);
+
     }
 }
 

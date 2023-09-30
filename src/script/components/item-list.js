@@ -1,7 +1,16 @@
 class ItemList extends HTMLElement {
     set items(items){
         this._items = items;
-        console.log(this._items);
+        this.render();
+    }
+
+    set editForm(editForm){
+        this._editForm = editForm;
+        this.render();
+    }
+
+    set deleteConfirm(deleteConfirm){
+        this._deleteConfirm = deleteConfirm;
         this.render();
     }
 
@@ -16,6 +25,8 @@ class ItemList extends HTMLElement {
             this._items.forEach(item => {
                 const itemEl = document.createElement('item-element');
                 itemEl.data = item;
+                itemEl.editForm = () => this._editForm.value = item;
+                itemEl.deleteConfirm = () => this._deleteConfirm.dataset.id = item.id;
                 this.appendChild(itemEl);
             });
         }
