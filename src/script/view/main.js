@@ -1,12 +1,12 @@
 import ItemsData from "../items-data.js";
 import createToast from "./toast-notif.js";
 
-const getItem  = async ({itemList, editForm, deleteConfirm}, amountModal) => {
+const getItem  = async ({itemList, editForm, deleteConfirm}, stockForm) => {
     try {
         itemList.items = await ItemsData.getItems();
         itemList.itemForm = editForm;
         itemList.deleteConfirm = deleteConfirm;
-        itemList.amountModal = amountModal;
+        itemList.amountModal = stockForm;
     } catch (rejectedMess) {
         itemList.renderError(rejectedMess);
     }
@@ -87,6 +87,7 @@ const main = async () => {
     buildModal(amountModal, "AmountItemModal", {element:stockForm, title:"Amount Item"}, async () => {
         try {
             await ItemsData.addItemTrans(stockForm.value, createToast);
+            stockForm.dataset.id = "";
             stockForm.dataset.type = "";
             getItem(itemBuildUp);
         } catch (rejectedMess) {
