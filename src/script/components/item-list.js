@@ -8,11 +8,17 @@ class ItemList extends HTMLElement {
     render(){
         this.innerHTML=``;
         this.classList.add("row", "mt-4", "px-2", "pb-4", "bg-dark", "rounded-4");
-        this._items.forEach(item => {
-            const itemEl = document.createElement('item-element');
-            itemEl.data = item;
-            this.appendChild(itemEl);
-        });
+        if(this._items.length===0){
+            this.innerHTML=`
+                <h2 class="col text-light text-center mt-4">Empty</h2>
+            `;
+        }else{
+            this._items.forEach(item => {
+                const itemEl = document.createElement('item-element');
+                itemEl.data = item;
+                this.appendChild(itemEl);
+            });
+        }
     }
 
     renderError = (message) => {

@@ -7,7 +7,6 @@ class ItemsData {
                 return response.json();
             })
             .then((responseJson) => {
-                console.log(responseJson);
                 if (responseJson.data) {
                     return Promise.resolve(responseJson.data);
                 } else {
@@ -16,7 +15,7 @@ class ItemsData {
             });
     }
 
-    static async addItem(item) {
+    static async addItem(item, notifCallback) {
         return fetch(`${BASEURL}/items`, {
             method: "POST",
             headers: {
@@ -25,19 +24,19 @@ class ItemsData {
             body: JSON.stringify(item),
         })
             .then((response) => {
-                console.log(response);
                 return response.json();
             })
             .then((responseJson) => {
                 console.log(responseJson);
                 if (responseJson.status==="success") {
+                    notifCallback("success", responseJson.message);
                     return Promise.resolve(responseJson.status);
                 } else {
                     return Promise.reject(responseJson.message);
                 }
             })
             .catch(err =>{
-                console.log(err);
+                notifCallback("error", err.message);
             });
     }
 }

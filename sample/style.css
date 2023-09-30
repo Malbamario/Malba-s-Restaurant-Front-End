@@ -20,11 +20,11 @@
   top: 30px;
   right: 20px;
 }
-.notifications :where(.my-toast, .column) {
+.notifications :where(.toast, .column) {
   display: flex;
   align-items: center;
 }
-.notifications .my-toast {
+.notifications .toast {
   width: 400px;
   position: relative;
   overflow: hidden;
@@ -50,7 +50,7 @@
     transform: translateX(-10px);
   }
 }
-.notifications .my-toast.hide {
+.notifications .toast.hide {
   animation: hide_toast 0.3s ease forwards;
 }
 @keyframes hide_toast {
@@ -67,7 +67,7 @@
     transform: translateX(calc(100% + 20px));
   }
 }
-.my-toast::before {
+.toast::before {
   position: absolute;
   content: "";
   height: 3px;
@@ -81,58 +81,78 @@
     width: 0%;
   }
 }
-.my-toast.toast-success::before{
+.toast.success::before,
+.btn#success {
   background: var(--success);
 }
-.my-toast.toast-error::before{
+.toast.error::before,
+.btn#error {
   background: var(--error);
 }
-.my-toast.toast-warning::before{
+.toast.warning::before,
+.btn#warning {
   background: var(--warning);
 }
-.my-toast.toast-info::before{
+.toast.info::before,
+.btn#info {
   background: var(--info);
 }
-.my-toast.toast-random::before{
+.toast.random::before,
+.btn#random {
   background: var(--random);
 }
-.my-toast .column i {
+.toast .column i {
   font-size: 1.75rem;
 }
-.my-toast.toast-success .column i {
+.toast.success .column i {
   color: var(--success);
 }
-.my-toast.toast-error .column i {
+.toast.error .column i {
   color: var(--error);
 }
-.my-toast.toast-warning .column i {
+.toast.warning .column i {
   color: var(--warning);
 }
-.my-toast.toast-info .column i {
+.toast.info .column i {
   color: var(--info);
 }
-.my-toast.toast-random .column i {
+.toast.random .column i {
   color: var(--random);
 }
-.my-toast .column span {
+.toast .column span {
   font-size: 1.07rem;
   margin-left: 12px;
 }
-.my-toast i:last-child {
+.toast i:last-child {
   color: #aeb0d7;
   cursor: pointer;
 }
-.my-toast i:last-child:hover {
+.toast i:last-child:hover {
   color: var(--dark);
+}
+.buttons .btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin: 0 5px;
+  color: var(--light);
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border-radius: 4px;
 }
 
 @media screen and (max-width: 530px) {
   .notifications {
     width: 95%;
   }
-  .notifications .my-toast {
+  .notifications .toast {
     width: 100%;
     font-size: 1rem;
     margin-left: 20px;
+  }
+  .buttons .btn {
+    margin: 0 1px;
+    font-size: 1.1rem;
+    padding: 8px 15px;
   }
 }

@@ -1,4 +1,5 @@
 import ItemsData from "../items-data.js";
+import createToast from "./toast-notif.js";
 
 const getItem  = async itemList => {
     try {
@@ -28,7 +29,7 @@ const main = async () => {
     loadModal(addModal, itemForm);
     addModal.clickEvent = async () => {
         try {
-            await ItemsData.addItem(itemForm.value);
+            await ItemsData.addItem(itemForm.value, createToast);
             itemForm.value = {};
             getItem(itemList);
         } catch (rejectedMess) {
@@ -45,7 +46,6 @@ const main = async () => {
     };
 
     getItem(itemList);
-
 
     searchBar.clickEvent = onButtonSearchClicked;
 
