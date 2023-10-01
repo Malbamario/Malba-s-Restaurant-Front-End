@@ -1,8 +1,6 @@
 class StockForm extends HTMLElement {
     connectedCallback() {
         this.render();
-        this._itemId = "";
-        this._type = "";
     }
 
     set value({id="", amount="", type=""}) {
@@ -17,7 +15,7 @@ class StockForm extends HTMLElement {
         let input = this.querySelector("#amount").value;
         if(this._type==="take") input = "-"+this.querySelector("#amount").value;
         const keterangan = this.querySelector("#keteranganTrans").value;
-        return {id: this._itemId, amount: this._amount, type:this._type, input, keterangan};
+        return {idItem: this._itemId, amount: this._amount, type:this._type, input, keterangan};
     }
 
     render() {
@@ -35,6 +33,13 @@ class StockForm extends HTMLElement {
             </div>
         </div>
         `;
+        const submitBtn = this.parentElement.parentElement.querySelector("#submitBtn");
+        this.querySelector('#keteranganTrans').addEventListener("keypress", e=>{
+            if(e.key==="Enter") {
+                e.preventDefault();
+                submitBtn.click();
+            }
+        });
     }
 }
 

@@ -29,7 +29,7 @@ class ItemList extends HTMLElement {
                 itemEl.data = item;
                 itemEl.editForm = () => this._editForm.value = item;
                 itemEl.deleteConfirm = () => this._deleteConfirm.dataset.id = item.id;
-                itemEl.stockForm = (type) => this._stockForm.value = {id: item.id, amount: item.amount, type};
+                itemEl.stockForm = type => this._stockForm.value = {id: item.id, amount: item.amount, type};
                 this.appendChild(itemEl);
             });
         }

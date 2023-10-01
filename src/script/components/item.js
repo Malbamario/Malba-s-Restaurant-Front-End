@@ -57,12 +57,8 @@ class ItemElement extends HTMLElement{
         </div>`;
         this.querySelector(`#edit`).addEventListener("click", this._editForm);
         this.querySelector(`#delete`).addEventListener("click", this._deleteConfirm);
-        this.querySelector(`#restock`).addEventListener("click", ()=>{
-            this._stockForm("restock");
-        });
-        this.querySelector(`#take`).addEventListener("click", ()=>{
-            this._stockForm("take");
-        });
+        this.querySelector(`#restock`).addEventListener("click", () => this._stockForm("restock"));
+        this.querySelector(`#take`).addEventListener("click", () => this._stockForm("take"));
     }
 }
 

@@ -1,12 +1,6 @@
 class AppBar extends HTMLElement {
-    // constructor() {
-    //     super();
-    //     this._shadowDOM = this.attachShadow({ mode: "closed" });
-    // }
-
     connectedCallback() {
         this.title = `Malba's Restaurant Storage System`;
-        this.render();
     }
 
     set title(title){

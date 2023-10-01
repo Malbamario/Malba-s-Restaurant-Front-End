@@ -1,7 +1,9 @@
 import './src/css/style.css';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/js/dist/modal';
+import 'bootstrap/js/dist/dropdown';
+import 'bootstrap/js/dist/button';
 import './src/script/components/app-bar.js';
 import './src/script/components/search-bar.js';
 import './src/script/components/add-btn.js';

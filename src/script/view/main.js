@@ -85,13 +85,12 @@ const main = async () => {
     });
 
     buildModal(amountModal, "AmountItemModal", {element:stockForm, title:"Amount Item"}, async () => {
-        console.log(stockForm.value.type, parseInt(stockForm.value.input)*-1, parseInt(stockForm.value.amount));
         if(stockForm.value.type==="take"&&parseInt(stockForm.value.input)*-1>parseInt(stockForm.value.amount)){
             createToast("warning", "The quantity given exceeds the existing stock!");
         }else{
             try {
                 await ItemsData.addItemTrans({
-                    id: stockForm.value.id,
+                    idItem: stockForm.value.idItem,
                     amount: stockForm.value.input,
                     keterangan: stockForm.value.keterangan,
                 }, createToast);

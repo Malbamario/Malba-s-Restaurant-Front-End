@@ -3,10 +3,8 @@ const BASEURL = "http://13.212.53.51:5000";
 class ItemsData {
     static async getItems() {
         return fetch(`${BASEURL}/items`)
-            .then((response) => {
-                return response.json();
-            })
-            .then((responseJson) => {
+            .then(response => response.json())
+            .then(responseJson => {
                 if (responseJson.data) {
                     return Promise.resolve(responseJson.data);
                 } else {
@@ -23,11 +21,8 @@ class ItemsData {
             },
             body: JSON.stringify(item),
         })
-            .then((response) => {
-                return response.json();
-            })
-            .then((responseJson) => {
-                console.log(responseJson);
+            .then(response => response.json())
+            .then(responseJson => {
                 if (responseJson.status==="success") {
                     notifCallback("success", responseJson.message);
                     return Promise.resolve(responseJson.status);
@@ -48,11 +43,8 @@ class ItemsData {
             },
             body: JSON.stringify(item),
         })
-            .then((response) => {
-                return response.json();
-            })
-            .then((responseJson) => {
-                console.log(responseJson);
+            .then(response => response.json())
+            .then(responseJson => {
                 if (responseJson.status==="success") {
                     notifCallback("success", responseJson.message);
                     return Promise.resolve(responseJson.status);
@@ -72,11 +64,8 @@ class ItemsData {
                 "Content-Type": "application/json",
             },
         })
-            .then((response) => {
-                return response.json();
-            })
-            .then((responseJson) => {
-                console.log(responseJson);
+            .then(response => response.json())
+            .then(responseJson => {
                 if (responseJson.status==="success") {
                     notifCallback("success", responseJson.message);
                     return Promise.resolve(responseJson.status);
@@ -90,7 +79,6 @@ class ItemsData {
     }
 
     static async addItemTrans(itemTrans, notifCallback) {
-        console.log(itemTrans);
         return fetch(`${BASEURL}/items_trans`, {
             method: "POST",
             headers: {
@@ -98,11 +86,8 @@ class ItemsData {
             },
             body: JSON.stringify(itemTrans),
         })
-            .then((response) => {
-                return response.json();
-            })
-            .then((responseJson) => {
-                console.log(responseJson);
+            .then(response => response.json())
+            .then(responseJson => {
                 if (responseJson.status==="success") {
                     notifCallback("success", responseJson.message);
                     return Promise.resolve(responseJson.status);

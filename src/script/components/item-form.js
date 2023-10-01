@@ -41,6 +41,13 @@ class ItemForm extends HTMLElement {
             </div>
         </div>
         `;
+        const submitBtn = this.parentElement.parentElement.querySelector("#submitBtn");
+        this.querySelector('#keterangan').addEventListener("keypress", e=>{
+            if(e.key==="Enter") {
+                e.preventDefault();
+                submitBtn.click();
+            }
+        });
     }
 }
 

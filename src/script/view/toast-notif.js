@@ -37,9 +37,7 @@ const createToast = (id, text) => {
     if(id==="warning") console.warn(text);
     else if(id==="error") console.error(text);
     toast.timeoutId = setTimeout(() => removeToast(toast), toastDetails.timer);
-    toast.lastChild.addEventListener("click", (e) => {
-        removeToast(e.target.parentElement);
-    });
+    toast.lastChild.addEventListener("click", e => removeToast(e.target.parentElement));
 };
 
 export default createToast;
