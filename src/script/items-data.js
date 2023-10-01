@@ -88,6 +88,32 @@ class ItemsData {
                 notifCallback("error", err.message);
             });
     }
+
+    static async addItemTrans(itemTrans, notifCallback) {
+        console.log(itemTrans);
+        return fetch(`${BASEURL}/items_trans`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",                
+            },
+            body: JSON.stringify(itemTrans),
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((responseJson) => {
+                console.log(responseJson);
+                if (responseJson.status==="success") {
+                    notifCallback("success", responseJson.message);
+                    return Promise.resolve(responseJson.status);
+                } else {
+                    return Promise.reject(responseJson.message);
+                }
+            })
+            .catch(err =>{
+                notifCallback("error", err.message);
+            });
+    }
 }
 
 export default ItemsData;

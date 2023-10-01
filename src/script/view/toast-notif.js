@@ -34,7 +34,8 @@ const createToast = (id, text) => {
     </div>
     <i class="bi bi-x-lg"></i>`;
     notifications.appendChild(toast);
-    console.log(notifications);
+    if(id==="warning") console.warn(text);
+    else if(id==="error") console.error(text);
     toast.timeoutId = setTimeout(() => removeToast(toast), toastDetails.timer);
     toast.lastChild.addEventListener("click", (e) => {
         removeToast(e.target.parentElement);

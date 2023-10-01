@@ -31,13 +31,13 @@ class ItemForm extends HTMLElement {
         <div class="mb-3 row">
             <label class="col-3 col-form-label me-1" for="unit">Unit</label>
             <div class="col-8">
-                <input class="form-control" type="text" unit="unit" id="unit">
+                <input class="form-control" type="text" name="unit" id="unit">
             </div>
         </div>
         <div class="mb-3 row">
             <label class="col-3 col-form-label me-1" for="keterangan">Keterangan</label>
             <div class="col-8">
-                <input class="form-control" type="text" keterangan="keterangan" id="keterangan">
+                <input class="form-control" type="text" name="keterangan" id="keterangan">
             </div>
         </div>
         `;

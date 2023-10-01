@@ -8,6 +8,7 @@ import './src/script/components/add-btn.js';
 import './src/script/components/item.js';
 import './src/script/components/item-list.js';
 import './src/script/components/item-form.js';
+import './src/script/components/stock-form.js';
 import './src/script/components/custom-modal.js';
 import main from './src/script/view/main.js';
 document.addEventListener('DOMContentLoaded', main);

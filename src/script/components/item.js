@@ -15,6 +15,11 @@ class ItemElement extends HTMLElement{
         this._deleteConfirm = deleteConfirm;
     }
 
+    set stockForm(stockForm){
+        this._stockForm = stockForm;
+        this.render();
+    }
+
     render(){
         this.className = "";
         this.classList.add("col-lg-4", "col-md-6", "col-sm-12");
@@ -30,9 +35,9 @@ class ItemElement extends HTMLElement{
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#EditItemModal" data-bs-toggle="modal"
-                                data-bs-target="#EditItemModal" id="${this._data.id}_edit">Edit</a></li>
+                                data-bs-target="#EditItemModal" id="edit">Edit</a></li>
                             <li><a class="dropdown-item" href="#DeleteItemModal" data-bs-toggle="modal"
-                                data-bs-target="#DeleteItemModal" id="${this._data.id}_delete">Delete</a></li>
+                                data-bs-target="#DeleteItemModal" id="delete">Delete</a></li>
                         </ul>
                     </div>
                 </div>
@@ -40,18 +45,24 @@ class ItemElement extends HTMLElement{
                 <p class="card-text">${this._data.keterangan}</p>
                 <div class="d-flex">
                     <button type="button" class="btn btn-success col-5 flex-fill me-1" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
+                        data-bs-target="#AmountItemModal" id="restock">
                         Restock
                     </button>
                     <button type="button" class="btn btn-danger col-5 flex-fill ms-1" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
+                        data-bs-target="#AmountItemModal" id="take">
                         Take
                     </button>
                 </div>
             </div>
         </div>`;
-        this.querySelector(`#${this._data.id}_edit`).addEventListener("click", this._editForm);
-        this.querySelector(`#${this._data.id}_delete`).addEventListener("click", this._deleteConfirm);
+        this.querySelector(`#edit`).addEventListener("click", this._editForm);
+        this.querySelector(`#delete`).addEventListener("click", this._deleteConfirm);
+        this.querySelector(`#restock`).addEventListener("click", ()=>{
+            this._stockForm("restock");
+        });
+        this.querySelector(`#take`).addEventListener("click", ()=>{
+            this._stockForm("take");
+        });
     }
 }
 

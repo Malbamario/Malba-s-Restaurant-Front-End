@@ -1,18 +1,18 @@
 import ItemsData from "../items-data.js";
 import createToast from "./toast-notif.js";
 
-const getItem  = async ({itemList, editForm, deleteConfirm}, stockForm) => {
+const getItem  = async ({itemList, editForm, deleteConfirm, stockForm}) => {
     try {
         itemList.items = await ItemsData.getItems();
-        itemList.itemForm = editForm;
+        itemList.editForm = editForm;
         itemList.deleteConfirm = deleteConfirm;
-        itemList.amountModal = stockForm;
+        itemList.stockForm = stockForm;
     } catch (rejectedMess) {
-        itemList.renderError(rejectedMess);
+        createToast("error", rejectedMess);
     }
 }
 
-const buildModal = async (modal, id, content, clickEvent) => {
+const buildModal = (modal, id, content, clickEvent) => {
     modal.id = id;
     modal.content = content;
     modal.clickEvent = clickEvent;
@@ -29,11 +29,11 @@ const main = async () => {
     const deleteModal = document.createElement("custom-modal");
     const amountModal = document.createElement("custom-modal");
     const addItemForm = document.createElement("item-form");
-    const editItemForm = document.createElement("item-form");
+    const editForm = document.createElement("item-form");
     const deleteConfirm = document.createElement("p");
     const stockForm = document.createElement("stock-form");
 
-    const itemBuildUp = {itemList, editItemForm, deleteConfirm, stockForm};
+    const itemBuildUp = {itemList, editForm, deleteConfirm, stockForm};
     getItem(itemBuildUp);
 
     searchBar.clickEvent = async () => {
@@ -41,7 +41,7 @@ const main = async () => {
             itemList.items = await ItemsData.searchItems(searchBar.value);
             itemList.itemForm = addItemForm;
         } catch (rejectedMess) {
-            itemList.renderError(rejectedMess);
+            createToast("warning", rejectedMess);
         }
     };
     
@@ -58,18 +58,18 @@ const main = async () => {
             addItemForm.value = {};
             getItem(itemBuildUp);
         } catch (rejectedMess) {
-            itemList.renderError(rejectedMess);
+            createToast("warning", rejectedMess);
         }
     });
     addBtn.modalId = addModal.id;
 
-    buildModal(editModal, "EditItemModal", {element:editItemForm, title:"Edit Item"}, async () => {
+    buildModal(editModal, "EditItemModal", {element:editForm, title:"Edit Item"}, async () => {
         try {
-            await ItemsData.editItem(editItemForm.value, createToast);
-            editItemForm.value = {};
+            await ItemsData.editItem(editForm.value, createToast);
+            editForm.value = {};
             getItem(itemBuildUp);
         } catch (rejectedMess) {
-            itemList.renderError(rejectedMess);
+            createToast("warning", rejectedMess);
         }
     });
 
@@ -80,18 +80,26 @@ const main = async () => {
             deleteConfirm.dataset.id = "";
             getItem(itemBuildUp);
         } catch (rejectedMess) {
-            itemList.renderError(rejectedMess);
+            createToast("warning", rejectedMess);
         }
     });
 
     buildModal(amountModal, "AmountItemModal", {element:stockForm, title:"Amount Item"}, async () => {
-        try {
-            await ItemsData.addItemTrans(stockForm.value, createToast);
-            stockForm.dataset.id = "";
-            stockForm.dataset.type = "";
-            getItem(itemBuildUp);
-        } catch (rejectedMess) {
-            itemList.renderError(rejectedMess);
+        console.log(stockForm.value.type, parseInt(stockForm.value.input)*-1, parseInt(stockForm.value.amount));
+        if(stockForm.value.type==="take"&&parseInt(stockForm.value.input)*-1>parseInt(stockForm.value.amount)){
+            createToast("warning", "The quantity given exceeds the existing stock!");
+        }else{
+            try {
+                await ItemsData.addItemTrans({
+                    id: stockForm.value.id,
+                    amount: stockForm.value.input,
+                    keterangan: stockForm.value.keterangan,
+                }, createToast);
+                stockForm.value = {};
+                getItem(itemBuildUp);
+            } catch (rejectedMess) {
+                createToast("warning", rejectedMess);
+            }
         }
     });
 };

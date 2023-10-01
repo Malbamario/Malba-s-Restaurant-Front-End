@@ -8,13 +8,16 @@ class StockForm extends HTMLElement {
     set value({id="", amount="", type=""}) {
         this._itemId = id;
         this._type = type;
-        this.querySelector("#amount").value = amount;
+        this._amount = amount;
+        this.render();
+        if(this._type==="take") this.querySelector("#amount").max = this._amount;
     }
 
     get value() {
-        let amount = "";
-        if(type==="take") amount = "-"+this.querySelector("#amount").value
-        return { id: this._itemId, amount };
+        let input = this.querySelector("#amount").value;
+        if(this._type==="take") input = "-"+this.querySelector("#amount").value;
+        const keterangan = this.querySelector("#keteranganTrans").value;
+        return {id: this._itemId, amount: this._amount, type:this._type, input, keterangan};
     }
 
     render() {
@@ -22,7 +25,13 @@ class StockForm extends HTMLElement {
         <div class="mb-3 row">
             <label class="col-3 col-form-label me-1" for="amount">Amount</label>
             <div class="col-8">
-                <input class="form-control" type="number" amount="amount" id="amount">
+                <input class="form-control" type="number" name="amount" id="amount">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label class="col-3 col-form-label me-1" for="keterangan">Keterangan</label>
+            <div class="col-8">
+                <input class="form-control" type="text" name="keterangan" id="keteranganTrans">
             </div>
         </div>
         `;

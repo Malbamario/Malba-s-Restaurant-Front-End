@@ -1,16 +1,18 @@
 class ItemList extends HTMLElement {
     set items(items){
         this._items = items;
-        this.render();
     }
 
     set editForm(editForm){
         this._editForm = editForm;
-        this.render();
     }
 
     set deleteConfirm(deleteConfirm){
         this._deleteConfirm = deleteConfirm;
+    }
+
+    set stockForm(stockForm){
+        this._stockForm = stockForm;
         this.render();
     }
 
@@ -27,15 +29,11 @@ class ItemList extends HTMLElement {
                 itemEl.data = item;
                 itemEl.editForm = () => this._editForm.value = item;
                 itemEl.deleteConfirm = () => this._deleteConfirm.dataset.id = item.id;
+                itemEl.stockForm = (type) => this._stockForm.value = {id: item.id, amount: item.amount, type};
                 this.appendChild(itemEl);
             });
         }
     }
-
-    renderError = (message) => {
-        this.innerHTML = ``;
-        this.innerHTML = `<h2 class="placeholder">${message}</h2>`;
-    };
 }
 
 customElements.define('item-list', ItemList);
