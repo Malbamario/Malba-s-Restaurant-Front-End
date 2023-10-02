@@ -4,7 +4,7 @@ class ItemForm extends HTMLElement {
         this._itemId = "";
     }
 
-    set value({id="", name="", unit="", keterangan=""}) {
+    set value({ id = "", name = "", unit = "", keterangan = "" }) {
         this._itemId = id;
         this.querySelector("#name").value = name;
         this.querySelector("#unit").value = unit;
@@ -42,8 +42,8 @@ class ItemForm extends HTMLElement {
         </div>
         `;
         const submitBtn = this.parentElement.parentElement.querySelector("#submitBtn");
-        this.querySelector('#keterangan').addEventListener("keypress", e=>{
-            if(e.key==="Enter") {
+        this.querySelector("#keterangan").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
                 e.preventDefault();
                 submitBtn.click();
             }

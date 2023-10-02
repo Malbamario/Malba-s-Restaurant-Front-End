@@ -28,16 +28,18 @@ const createToast = (id, text) => {
     const { icon } = toastDetails[id];
     const toast = document.createElement("li");
     toast.className = `my-toast toast-${id}`;
-    toast.innerHTML = `<div class="column">
-    <i class="bi ${icon}"></i>
-    <span>${text}</span>
-    </div>
-    <i class="bi bi-x-lg"></i>`;
+    toast.innerHTML = `
+        <div class="column">
+            <i class="bi ${icon}"></i>
+            <span>${text}</span>
+        </div>
+        <i class="bi bi-x-lg"></i>
+    `;
     notifications.appendChild(toast);
-    if(id==="warning") console.warn(text);
-    else if(id==="error") console.error(text);
+    if (id === "warning") console.warn(text);
+    else if (id === "error") console.error(text);
     toast.timeoutId = setTimeout(() => removeToast(toast), toastDetails.timer);
-    toast.lastChild.addEventListener("click", e => removeToast(e.target.parentElement));
+    toast.lastChild.addEventListener("click", (e) => removeToast(e.target.parentElement));
 };
 
 export default createToast;

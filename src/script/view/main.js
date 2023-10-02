@@ -1,23 +1,37 @@
 import ItemsData from "../items-data.js";
 import createToast from "./toast-notif.js";
 
-const getItem  = async ({itemList, editForm, deleteConfirm, stockForm}) => {
+let items = [];
+
+const getItem = async ({ itemList, editForm, deleteConfirm, stockForm }) => {
     try {
-        itemList.items = await ItemsData.getItems();
+        items = await ItemsData.getItems();
+        itemList.items = items;
         itemList.editForm = editForm;
         itemList.deleteConfirm = deleteConfirm;
         itemList.stockForm = stockForm;
     } catch (rejectedMess) {
         createToast("error", rejectedMess);
     }
-}
+};
 
 const buildModal = (modal, id, content, clickEvent) => {
     modal.id = id;
     modal.content = content;
     modal.clickEvent = clickEvent;
     document.querySelector("body").appendChild(modal);
-}
+};
+
+const searchItem = async (value, itemList, itemBuildUp) => {
+    if (value === "") items = getItem(itemBuildUp);
+    else {
+        items = items.filter((e) => e.name.includes(value));
+        itemList.items = items;
+        itemList.editForm = itemBuildUp.editForm;
+        itemList.deleteConfirm = itemBuildUp.deleteConfirm;
+        itemList.stockForm = itemBuildUp.stockForm;
+    }
+};
 
 const main = async () => {
     const appBar = document.createElement("app-bar");
@@ -33,18 +47,13 @@ const main = async () => {
     const deleteConfirm = document.createElement("p");
     const stockForm = document.createElement("stock-form");
 
-    const itemBuildUp = {itemList, editForm, deleteConfirm, stockForm};
+    const itemBuildUp = { itemList, editForm, deleteConfirm, stockForm };
     getItem(itemBuildUp);
 
-    searchBar.clickEvent = async () => {
-        try {
-            itemList.items = await ItemsData.searchItems(searchBar.value);
-            itemList.itemForm = addItemForm;
-        } catch (rejectedMess) {
-            createToast("warning", rejectedMess);
-        }
-    };
-    
+    searchBar.itemList = itemList;
+    searchBar.itemBuildUp = itemBuildUp;
+    searchBar.clickEvent = searchItem;
+
     document.querySelector("header").appendChild(appBar);
     const mainEl = document.querySelector("main");
     mainEl.classList.add("container", "mt-5");
@@ -52,7 +61,7 @@ const main = async () => {
     mainEl.appendChild(addBtn);
     mainEl.appendChild(itemList);
 
-    buildModal(addModal, "AddItemModal", {element:addItemForm, title:"Add Item"}, async () => {
+    buildModal(addModal, "AddItemModal", { element: addItemForm, title: "Add Item" }, async () => {
         try {
             await ItemsData.addItem(addItemForm.value, createToast);
             addItemForm.value = {};
@@ -63,7 +72,7 @@ const main = async () => {
     });
     addBtn.modalId = addModal.id;
 
-    buildModal(editModal, "EditItemModal", {element:editForm, title:"Edit Item"}, async () => {
+    buildModal(editModal, "EditItemModal", { element: editForm, title: "Edit Item" }, async () => {
         try {
             await ItemsData.editItem(editForm.value, createToast);
             editForm.value = {};
@@ -73,34 +82,53 @@ const main = async () => {
         }
     });
 
-    deleteConfirm.innerHTML=`Are you sure to delete this item?`;
-    buildModal(deleteModal, "DeleteItemModal", {element:deleteConfirm, title:"Delete Item"}, async () => {
-        try {
-            await ItemsData.deleteItem(deleteConfirm.dataset.id, createToast);
-            deleteConfirm.dataset.id = "";
-            getItem(itemBuildUp);
-        } catch (rejectedMess) {
-            createToast("warning", rejectedMess);
-        }
-    });
-
-    buildModal(amountModal, "AmountItemModal", {element:stockForm, title:"Amount Item"}, async () => {
-        if(stockForm.value.type==="take"&&parseInt(stockForm.value.input)*-1>parseInt(stockForm.value.amount)){
-            createToast("warning", "The quantity given exceeds the existing stock!");
-        }else{
+    deleteConfirm.innerHTML = `Are you sure to delete this item?`;
+    buildModal(
+        deleteModal,
+        "DeleteItemModal",
+        { element: deleteConfirm, title: "Delete Item" },
+        async () => {
             try {
-                await ItemsData.addItemTrans({
-                    idItem: stockForm.value.idItem,
-                    amount: stockForm.value.input,
-                    keterangan: stockForm.value.keterangan,
-                }, createToast);
-                stockForm.value = {};
+                await ItemsData.deleteItem(deleteConfirm.dataset.id, createToast);
+                deleteConfirm.dataset.id = "";
                 getItem(itemBuildUp);
             } catch (rejectedMess) {
                 createToast("warning", rejectedMess);
             }
         }
-    });
+    );
+
+    buildModal(
+        amountModal,
+        "AmountItemModal",
+        { element: stockForm, title: "Amount Item" },
+        async () => {
+            const input = parseInt(stockForm.value.input);
+            const type = stockForm.value.type;
+            const takeLogic = type === "take" && input * -1 > parseInt(stockForm.value.amount);
+            const invalidInput =
+                (type === "take" && input > -1) || (type === "restock" && input < 1);
+            if (invalidInput) createToast("warning", "The input is invalid");
+            else if (takeLogic)
+                createToast("warning", "The quantity given exceeds the existing stock");
+            else {
+                try {
+                    await ItemsData.addItemTrans(
+                        {
+                            idItem: stockForm.value.idItem,
+                            amount: stockForm.value.input,
+                            keterangan: stockForm.value.keterangan,
+                        },
+                        createToast
+                    );
+                    stockForm.value = {};
+                    getItem(itemBuildUp);
+                } catch (rejectedMess) {
+                    createToast("warning", rejectedMess);
+                }
+            }
+        }
+    );
 };
 
 export default main;

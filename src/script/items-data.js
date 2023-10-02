@@ -3,8 +3,8 @@ const BASEURL = "http://13.212.53.51:5000";
 class ItemsData {
     static async getItems() {
         return fetch(`${BASEURL}/items`)
-            .then(response => response.json())
-            .then(responseJson => {
+            .then((response) => response.json())
+            .then((responseJson) => {
                 if (responseJson.data) {
                     return Promise.resolve(responseJson.data);
                 } else {
@@ -17,20 +17,20 @@ class ItemsData {
         return fetch(`${BASEURL}/items`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",                
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(item),
         })
-            .then(response => response.json())
-            .then(responseJson => {
-                if (responseJson.status==="success") {
+            .then((response) => response.json())
+            .then((responseJson) => {
+                if (responseJson.status === "success") {
                     notifCallback("success", responseJson.message);
                     return Promise.resolve(responseJson.status);
                 } else {
                     return Promise.reject(responseJson.message);
                 }
             })
-            .catch(err =>{
+            .catch((err) => {
                 notifCallback("error", err.message);
             });
     }
@@ -39,20 +39,20 @@ class ItemsData {
         return fetch(`${BASEURL}/items`, {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json",                
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(item),
         })
-            .then(response => response.json())
-            .then(responseJson => {
-                if (responseJson.status==="success") {
+            .then((response) => response.json())
+            .then((responseJson) => {
+                if (responseJson.status === "success") {
                     notifCallback("success", responseJson.message);
                     return Promise.resolve(responseJson.status);
                 } else {
                     return Promise.reject(responseJson.message);
                 }
             })
-            .catch(err =>{
+            .catch((err) => {
                 notifCallback("error", err.message);
             });
     }
@@ -64,16 +64,16 @@ class ItemsData {
                 "Content-Type": "application/json",
             },
         })
-            .then(response => response.json())
-            .then(responseJson => {
-                if (responseJson.status==="success") {
+            .then((response) => response.json())
+            .then((responseJson) => {
+                if (responseJson.status === "success") {
                     notifCallback("success", responseJson.message);
                     return Promise.resolve(responseJson.status);
                 } else {
                     return Promise.reject(responseJson.message);
                 }
             })
-            .catch(err =>{
+            .catch((err) => {
                 notifCallback("error", err.message);
             });
     }
@@ -82,20 +82,20 @@ class ItemsData {
         return fetch(`${BASEURL}/items_trans`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",                
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(itemTrans),
         })
-            .then(response => response.json())
-            .then(responseJson => {
-                if (responseJson.status==="success") {
+            .then((response) => response.json())
+            .then((responseJson) => {
+                if (responseJson.status === "success") {
                     notifCallback("success", responseJson.message);
                     return Promise.resolve(responseJson.status);
                 } else {
                     return Promise.reject(responseJson.message);
                 }
             })
-            .catch(err =>{
+            .catch((err) => {
                 notifCallback("error", err.message);
             });
     }

@@ -1,28 +1,27 @@
-class ItemElement extends HTMLElement{
-    connectedCallback(){
+class ItemElement extends HTMLElement {
+    connectedCallback() {
         this.render();
     }
 
-    set data(data){
+    set data(data) {
         this._data = data;
     }
 
-    set editForm(editForm){
+    set editForm(editForm) {
         this._editForm = editForm;
     }
 
-    set deleteConfirm(deleteConfirm){
+    set deleteConfirm(deleteConfirm) {
         this._deleteConfirm = deleteConfirm;
     }
 
-    set stockForm(stockForm){
+    set stockForm(stockForm) {
         this._stockForm = stockForm;
         this.render();
     }
 
-    render(){
-        this.className = "";
-        this.classList.add("col-lg-4", "col-md-6", "col-sm-12");
+    render() {
+        this.className = "col-lg-4 col-md-6 col-sm-12";
         this.innerHTML = `
         <div class="card mt-4">
             <!-- <img src="..." class="card-img-top" alt="..."> -->
@@ -62,4 +61,4 @@ class ItemElement extends HTMLElement{
     }
 }
 
-customElements.define('item-element', ItemElement);
+customElements.define("item-element", ItemElement);

@@ -1,20 +1,19 @@
 class CustomModal extends HTMLElement {
-
-    set content(content){
+    set content(content) {
         this._content = content;
         this.render();
     }
 
-    set clickEvent(event){
+    set clickEvent(event) {
         this._clickEvent = event;
         this.render();
     }
 
-    render(){
+    render() {
         this.className = "";
         this.classList.add("modal", "fade");
         this.tabIndex = -1;
-        this.ariaHidden = 'true';
+        this.ariaHidden = "true";
         this.innerHTML = `
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
@@ -32,8 +31,7 @@ class CustomModal extends HTMLElement {
         `;
         this.querySelector(".modal-body").appendChild(this._content.element);
         this.querySelector("#submitBtn").addEventListener("click", this._clickEvent);
-
     }
 }
 
-customElements.define('custom-modal', CustomModal);
+customElements.define("custom-modal", CustomModal);
