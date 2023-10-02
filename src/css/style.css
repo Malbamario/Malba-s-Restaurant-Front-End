@@ -1,153 +1,182 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background-color: #D4D925;
+    background-color: #d4d925;
 }
 
 item-list {
-  background-color: #FF5B00;
+    background-color: #ff5b00;
 }
 
-app-bar nav{
-  background-color: #FFEE63;
+app-bar nav {
+    background-color: #ffee63;
 }
 
 .add-btn {
-  background-color: #FF5B00;
-  color:white;
+    background-color: #ff5b00;
+    color: white;
 }
 
 :root {
-  --dark: #78fad1;
-  --light: #ffffff;
-  --success: #0abf30;
-  --error: #e24d4c;
-  --warning: #e9bd0c;
-  --info: #3498db;
-  --random: #eb43ff;
+    --dark: #78fad1;
+    --light: #ffffff;
+    --success: #0abf30;
+    --error: #e24d4c;
+    --warning: #e9bd0c;
+    --info: #3498db;
+    --random: #eb43ff;
 }
+
 .notifications {
-  position: fixed;
-  top: 30px;
-  right: 20px;
+    position: fixed;
+    top: 30px;
+    right: 20px;
 }
+
 .notifications :where(.my-toast, .column) {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
+
 .notifications .my-toast {
-  width: 400px;
-  position: relative;
-  overflow: hidden;
-  list-style: none;
-  border-radius: 4px;
-  padding: 16px 17px;
-  margin-bottom: 10px;
-  background: var(--light);
-  justify-content: space-between;
-  animation: show_toast 0.3s ease forwards;
+    width: 400px;
+    position: relative;
+    overflow: hidden;
+    list-style: none;
+    border-radius: 4px;
+    padding: 16px 17px;
+    margin-bottom: 10px;
+    background: var(--light);
+    justify-content: space-between;
+    animation: show_toast 0.3s ease forwards;
 }
+
 @keyframes show_toast {
-  0% {
-    transform: translateX(100%);
-  }
-  40% {
-    transform: translateX(-5%);
-  }
-  80% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-10px);
-  }
+    0% {
+        transform: translateX(100%);
+    }
+
+    40% {
+        transform: translateX(-5%);
+    }
+
+    80% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-10px);
+    }
 }
+
 .notifications .my-toast.hide {
-  animation: hide_toast 0.3s ease forwards;
+    animation: hide_toast 0.3s ease forwards;
 }
+
 @keyframes hide_toast {
-  0% {
-    transform: translateX(-10px);
-  }
-  40% {
-    transform: translateX(0%);
-  }
-  80% {
-    transform: translateX(-5%);
-  }
-  100% {
-    transform: translateX(calc(100% + 20px));
-  }
+    0% {
+        transform: translateX(-10px);
+    }
+
+    40% {
+        transform: translateX(0%);
+    }
+
+    80% {
+        transform: translateX(-5%);
+    }
+
+    100% {
+        transform: translateX(calc(100% + 20px));
+    }
 }
+
 .my-toast::before {
-  position: absolute;
-  content: "";
-  height: 3px;
-  width: 100%;
-  bottom: 0px;
-  left: 0px;
-  animation: progress 5s linear forwards;
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+    animation: progress 5s linear forwards;
 }
+
 @keyframes progress {
-  100% {
-    width: 0%;
-  }
+    100% {
+        width: 0%;
+    }
 }
-.my-toast.toast-success::before{
-  background: var(--success);
+
+.my-toast.toast-success::before {
+    background: var(--success);
 }
-.my-toast.toast-error::before{
-  background: var(--error);
+
+.my-toast.toast-error::before {
+    background: var(--error);
 }
-.my-toast.toast-warning::before{
-  background: var(--warning);
+
+.my-toast.toast-warning::before {
+    background: var(--warning);
 }
-.my-toast.toast-info::before{
-  background: var(--info);
+
+.my-toast.toast-info::before {
+    background: var(--info);
 }
-.my-toast.toast-random::before{
-  background: var(--random);
+
+.my-toast.toast-random::before {
+    background: var(--random);
 }
+
 .my-toast .column i {
-  font-size: 1.75rem;
+    font-size: 1.75rem;
 }
+
 .my-toast.toast-success .column i {
-  color: var(--success);
+    color: var(--success);
 }
+
 .my-toast.toast-error .column i {
-  color: var(--error);
+    color: var(--error);
 }
+
 .my-toast.toast-warning .column i {
-  color: var(--warning);
+    color: var(--warning);
 }
+
 .my-toast.toast-info .column i {
-  color: var(--info);
+    color: var(--info);
 }
+
 .my-toast.toast-random .column i {
-  color: var(--random);
+    color: var(--random);
 }
+
 .my-toast .column span {
-  font-size: 1.07rem;
-  margin-left: 12px;
+    font-size: 1.07rem;
+    margin-left: 12px;
 }
+
 .my-toast i:last-child {
-  color: #aeb0d7;
-  cursor: pointer;
+    color: #aeb0d7;
+    cursor: pointer;
 }
+
 .my-toast i:last-child:hover {
-  color: var(--dark);
+    color: var(--dark);
 }
 
 @media screen and (max-width: 530px) {
-  .notifications {
-    width: 95%;
-  }
-  .notifications .my-toast {
-    width: 100%;
-    font-size: 1rem;
-    margin-left: 20px;
-  }
+    .notifications {
+        width: 95%;
+    }
+
+    .notifications .my-toast {
+        width: 100%;
+        font-size: 1rem;
+        margin-left: 20px;
+    }
 }

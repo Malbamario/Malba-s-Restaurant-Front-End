@@ -1,5 +1,4 @@
 class AddBtn extends HTMLElement {
-    
     set modalId(modalId) {
         this._modalId = modalId;
         this.render();

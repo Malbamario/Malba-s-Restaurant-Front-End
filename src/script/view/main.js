@@ -1,5 +1,6 @@
 import ItemsData from "../items-data.js";
 import createToast from "./toast-notif.js";
+import icon from "./../../img/icon.png";
 
 let items = [];
 
@@ -34,6 +35,7 @@ const searchItem = async (value, itemList, itemBuildUp) => {
 };
 
 const main = async () => {
+    const head = document.createElement("link");
     const appBar = document.createElement("app-bar");
     const searchBar = document.createElement("search-bar");
     const addBtn = document.createElement("add-btn");
@@ -46,6 +48,9 @@ const main = async () => {
     const editForm = document.createElement("item-form");
     const deleteConfirm = document.createElement("p");
     const stockForm = document.createElement("stock-form");
+
+    head.append(`<link rel="icon" type="image/x-icon" href="${icon}">`);
+    appBar.icon = icon
 
     const itemBuildUp = { itemList, editForm, deleteConfirm, stockForm };
     getItem(itemBuildUp);
